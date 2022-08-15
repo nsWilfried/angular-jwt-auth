@@ -11,12 +11,12 @@
             <!-- icon et titre-->
 
             <!--formulaire d'inscription-->
-            <form class="mt-8 space-y-6" [formGroup]='registerGroup' action="/"  >
+            <form class="mt-8 space-y-6" [formGroup]='registerGroup' (ngSubmit)="onSubmit()" action="/"  >
                 <div class="rounded-md shadow-sm -space-y-px">
                     <!--username-->
                     <div class="w-96">
                         <mat-form-field class="w-full"  appearance="outline">
-                            <mat-label>Nom d'ulisateur</mat-label>
+                            <mat-label>Nom d'utilisateur</mat-label>
                             <input type="text" matInput formControlName="username" placeholder="Entrer votre adresse nom d'utilisateur">
                             <mat-error *ngIf="registerGroup.controls['username'].hasError('required')">
                                 Nom d'utilisateur  requis
@@ -83,7 +83,11 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </span>
-                        S'inscrire
+                        <div *ngIf="loading == true" class="h-12 flex justify-center items-center">
+                            <app-loading></app-loading>
+                        </div>
+
+                        <span *ngIf="loading == false">S'inscrire</span>
                     </button>
                 </div>
             </form>

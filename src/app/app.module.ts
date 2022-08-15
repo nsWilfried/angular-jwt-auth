@@ -12,15 +12,18 @@ import { MatIconModule } from '@angular/material/icon';
   import {MatButtonModule} from '@angular/material/button'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
-
-
-
+import { HttpClientModule } from '@angular/common/http';
+import { LoadingComponent } from './components/loading/loading.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './pages/home/home.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar'; 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     NavbarComponent, 
+    LoadingComponent, HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     MatFormFieldModule,
     ReactiveFormsModule, 
     MatButtonModule, 
-    MatIconModule
+    HttpClientModule, 
+    MatIconModule, 
+    BrowserAnimationsModule, 
+    MatSnackBarModule
   ],
   providers: [
     AuthService

@@ -11,7 +11,7 @@
             <!-- icon et titre-->
 
             <!--formulaire d'inscription-->
-            <form class="mt-8 space-y-6" [formGroup]='loginGroup' action="/">
+            <form class="mt-8 space-y-6" [formGroup]='loginGroup'  (ngSubmit)="onSubmit()" >
                 <div class="rounded-md shadow-sm -space-y-px">
                     <!-- email -->
                     <div class="w-96">
@@ -72,7 +72,11 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </span>
-                        Se connecter
+                        <div *ngIf="loading == true" class="h-12 flex justify-center items-center">
+                            <app-loading></app-loading>
+                        </div>
+                        
+                        <span *ngIf="loading == false">Se connecter</span>
                     </button>
                 </div>
             </form>

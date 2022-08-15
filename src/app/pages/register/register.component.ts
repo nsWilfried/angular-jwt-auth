@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -9,9 +11,14 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 export class RegisterComponent implements OnInit {
 
   registerGroup!: FormGroup
-  hide:boolean = true
+  registerValue!: any;
+  hide: boolean = true
+  loading: boolean = false
   constructor(
-    private fb:FormBuilder
+    private fb: FormBuilder, 
+
+    private authService: AuthService, 
+    private router:Router
   ) { 
     this.registerGroup = this.fb.group({
       username: new FormControl('', [Validators.required]), 
@@ -22,7 +29,15 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  onSubmit(email: string, password: string) {
-    console.log(email, password)
+  onSubmit() {
+      this.loading = true
+
+    this.registerValue = this.registerGroup.value
+    this.authService.register(this.registerValue['username'],
+      this.registerValue['email'], this.registerValue['password'])
+      .subscribe(() => {
+        console.log('tout marche bien on dirait')
+        this.router.navigate(['/user/login'])
+    })
   }
 }
