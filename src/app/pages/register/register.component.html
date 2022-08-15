@@ -1,0 +1,93 @@
+<div class="w-full h-screen flex justify-center items-center">
+    <div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <!--icon et titre-->
+            <div>
+                <img class="mx-auto h-12 w-auto"
+                    src="https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600" alt="Workflow">
+                <h2 class="mt-6 text-center text-3xl tracking-tight font-bold text-gray-900">Inscrivez-vous à votre compte
+                </h2>
+            </div>
+            <!-- icon et titre-->
+
+            <!--formulaire d'inscription-->
+            <form class="mt-8 space-y-6" [formGroup]='registerGroup' action="/"  >
+                <div class="rounded-md shadow-sm -space-y-px">
+                    <!--username-->
+                    <div class="w-96">
+                        <mat-form-field class="w-full"  appearance="outline">
+                            <mat-label>Nom d'ulisateur</mat-label>
+                            <input type="text" matInput formControlName="username" placeholder="Entrer votre adresse nom d'utilisateur">
+                            <mat-error *ngIf="registerGroup.controls['username'].hasError('required')">
+                                Nom d'utilisateur  requis
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!--username-->
+                    <!-- email -->
+                    <div class="w-96">
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="email" matInput formControlName="email"
+                                placeholder="Entrer votre adresse mail">
+                            <mat-error *ngIf="registerGroup.controls['email'].hasError('email')">
+                                Email invalide
+                            </mat-error>
+                            <mat-error *ngIf="registerGroup.controls['email'].hasError('required')">
+                                Email requis
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!--email -->
+
+                    <!-- password  -->
+                    <div class="w-96">
+                        <mat-form-field class="w-full" appearance="outline">
+                            <mat-label>Mot de passe</mat-label>
+                            <input formControlName='password' [type]="hide ? 'password' : 'text'" matInput
+                                placeholder="Entrez votre mot de passe" required>
+                        
+                            <!-- submit button  -->
+                            <button type="button" mat-icon-button matSuffix (click)="hide = !hide" >
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                            <!-- submit button  -->
+
+                            <!--errors-->
+                            <mat-error *ngIf="registerGroup.controls['password'].hasError('minlength')">
+                                <span>Le mot de passe doit contenir au moins
+                                    6caractères</span>
+                            </mat-error>
+
+                            <mat-error *ngIf="registerGroup.controls['password'].hasError('required')">
+                                <span>Mot de passe requis</span>
+                            </mat-error>
+                        
+                        </mat-form-field>
+                    </div>
+                   
+                    <!-- password -->
+                
+                </div>
+    
+                <div>
+                    <button mat-flat-button [disabled] ='registerGroup.invalid'  type="submit"
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <span *ngIf="registerGroup.valid" class="absolute left-0 inset-y-0 flex items-center pl-3">
+                            <!-- Heroicon name: solid/lock-closed -->
+                            <svg class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                    d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                        S'inscrire
+                    </button>
+                </div>
+            </form>
+            <!--formulaire d'inscription-->
+        </div>
+    </div>
+</div>
