@@ -42,19 +42,23 @@ export class RegisterComponent implements OnInit {
     // register user
     this.authService.register(username,email,password)
       .subscribe(() => {
-        this.snackbar.open("Utilisateur crée", 'Success', {
-            horizontalPosition: 'center',
-            verticalPosition:'bottom',
-          });
+        this.openSnack('Utilisateur crée', 'Success')
         this.router.navigate(['/user/login'])
       },
         (error) => {
-          this.snackbar.open(error.message, 'Erreur', {
-            horizontalPosition: 'center',
-            verticalPosition:'bottom',
-          });
+          this.loading = false;
+          this.registerGroup.reset()
+          this.openSnack(error.message, 'Erreur')
         }
-      )
+    )
     
+    
+  }
+
+  openSnack(message:string, event:string) {
+    this.snackbar.open(message, event, {
+        horizontalPosition: 'center',
+        verticalPosition:'bottom',
+    });
   }
 }
