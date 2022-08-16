@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder, 
 
     private authService: AuthService, 
-    private router:Router
+    private router: Router, 
+    private snackbar:MatSnackBar
   ) { 
     this.registerGroup = this.fb.group({
       username: new FormControl('', [Validators.required]), 
@@ -30,14 +32,29 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit() {
-      this.loading = true
-
+    this.loading = true
     this.registerValue = this.registerGroup.value
-    this.authService.register(this.registerValue['username'],
-      this.registerValue['email'], this.registerValue['password'])
+
+    const username = this.registerValue['username']
+    const password = this.registerValue['password']
+    const email = this.registerValue['email']
+
+    // register user
+    this.authService.register(username,email,password)
       .subscribe(() => {
-        console.log('tout marche bien on dirait')
+        this.snackbar.open("Utilisateur crée", 'Success', {
+            horizontalPosition: 'center',
+            verticalPosition:'bottom',
+          });
         this.router.navigate(['/user/login'])
-    })
+      },
+        (error) => {
+          this.snackbar.open(error.message, 'Erreur', {
+            horizontalPosition: 'center',
+            verticalPosition:'bottom',
+          });
+        }
+      )
+    
   }
 }

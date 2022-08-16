@@ -69,7 +69,12 @@
                     <!-- password -->
                 
                 </div>
-    
+                
+                <div class="w-96 flex justify-center">
+                    <a class="text-indigo-500" routerLink="/user/login">Se connecter</a>
+                </div>
+
+                <!--submit button-->
                 <div>
                     <button mat-flat-button [disabled] ='registerGroup.invalid'  type="submit"
                         class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -90,6 +95,7 @@
                         <span *ngIf="loading == false">S'inscrire</span>
                     </button>
                 </div>
+                <!--submit button-->
             </form>
             <!--formulaire d'inscription-->
         </div>

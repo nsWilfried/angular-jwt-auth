@@ -32,7 +32,10 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.loading = true
     this.loginValue = this.loginGroup.value
-    this.authService.login(this.loginValue['email'], this.loginValue['password'])
+
+    const email = this.loginValue['email']
+    const password = this.loginValue['password']
+    this.authService.login(email, password)
       .subscribe(
         (response) => {
           const user = {
@@ -46,6 +49,8 @@ export class LoginComponent implements OnInit {
         }
         ,
         (error) => {
+          this.loading = false
+          this.loginGroup.reset()
            this.snackbar.open(error.message, 'Erreur', {
             horizontalPosition: 'center',
             verticalPosition:'bottom',
