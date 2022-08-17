@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
 
     private authService: AuthService, 
     private router: Router, 
-    private snackbar:MatSnackBar
+    private snackbar:MatSnackBar, 
+    private alert: AlertService,
   ) { 
     this.registerGroup = this.fb.group({
       username: new FormControl('', [Validators.required]), 
@@ -42,17 +44,13 @@ export class RegisterComponent implements OnInit {
     // register user
     this.authService.register(username,email,password)
       .subscribe(() => {
-        this.snackbar.open("Utilisateur crée", 'Success', {
-            horizontalPosition: 'center',
-            verticalPosition:'bottom',
-          });
+        this.alert.showErrorAlert("Succès", `Utilisateur créé`)
+
         this.router.navigate(['/user/login'])
       },
         (error) => {
-          this.snackbar.open(error.message, 'Erreur', {
-            horizontalPosition: 'center',
-            verticalPosition:'bottom',
-          });
+          this.loading = false;
+          this.alert.showErrorAlert("Erreur", `Erreur lors de la création de l'utilisateur ${error.message}`)
         }
       )
     

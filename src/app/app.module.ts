@@ -16,7 +16,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingComponent } from './components/loading/loading.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './pages/home/home.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar'; 
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +37,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule, 
     MatIconModule, 
     BrowserAnimationsModule, 
-    MatSnackBarModule
+    MatSnackBarModule, 
+    SweetAlert2Module
   ],
   providers: [
     AuthService

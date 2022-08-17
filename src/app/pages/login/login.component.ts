@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -19,7 +20,9 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder, 
     private authService: AuthService, 
     private router: Router, 
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar ,
+    private alert: AlertService ,
+    
   ) { 
     this.loginGroup = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]), 
@@ -45,16 +48,14 @@ export class LoginComponent implements OnInit {
             id: response._id
           }
           localStorage.setItem('user', JSON.stringify(user))
+          this.alert.showSuccessAlert("Succès ", "Utilisateur connecté")
           this.router.navigate(['/home'])
         }
         ,
         (error) => {
           this.loading = false
           this.loginGroup.reset()
-           this.snackbar.open(error.message, 'Erreur', {
-            horizontalPosition: 'center',
-            verticalPosition:'bottom',
-          });
+           this.alert.showErrorAlert("Erreur", "Erreur lors de la connexion")
         })
     
   }
