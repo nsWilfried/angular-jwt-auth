@@ -46,13 +46,24 @@ export class RegisterComponent implements OnInit {
       .subscribe(() => {
         this.alert.showErrorAlert("Succès", `Utilisateur créé`)
 
+        this.openSnack('Utilisateur crée', 'Success')
         this.router.navigate(['/user/login'])
       },
         (error) => {
           this.loading = false;
           this.alert.showErrorAlert("Erreur", `Erreur lors de la création de l'utilisateur ${error.message}`)
+          this.registerGroup.reset()
+          this.openSnack(error.message, 'Erreur')
         }
-      )
+    )
     
+    
+  }
+
+  openSnack(message:string, event:string) {
+    this.snackbar.open(message, event, {
+        horizontalPosition: 'center',
+        verticalPosition:'bottom',
+    });
   }
 }

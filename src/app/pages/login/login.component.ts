@@ -58,5 +58,6 @@ export class LoginComponent implements OnInit {
            this.alert.showErrorAlert("Erreur", "Erreur lors de la connexion")
         })
     
+    
   }
 }
