@@ -44,16 +44,13 @@ export class RegisterComponent implements OnInit {
     // register user
     this.authService.register(username,email,password)
       .subscribe(() => {
-        this.alert.showErrorAlert("Succès", `Utilisateur créé`)
-
-        this.openSnack('Utilisateur crée', 'Success')
+        this.alert.showSuccessAlert("Succès", `Utilisateur créé`)
         this.router.navigate(['/user/login'])
       },
         (error) => {
           this.loading = false;
           this.alert.showErrorAlert("Erreur", `Erreur lors de la création de l'utilisateur ${error.message}`)
           this.registerGroup.reset()
-          this.openSnack(error.message, 'Erreur')
         }
     )
     
